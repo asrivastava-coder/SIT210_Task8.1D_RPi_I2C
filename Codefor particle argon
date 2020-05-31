@@ -1,0 +1,28 @@
+#include <wire.h>
+
+
+int led1 = D7;
+
+
+
+
+void setup() {
+    
+    pinMode(led1, OUTPUT);
+    wire.begin(0x8);
+    wire.Onreceive(receiveEvent);
+    digitalWrite(led1, LOW);
+
+}
+
+void receiveEvent(int howMany) {
+    while (Wire.availabe()) {
+        char c = wire.Read();
+        digitalWrite(led1, c);
+    }
+}
+
+void loop() {
+    delay(100);
+
+}
